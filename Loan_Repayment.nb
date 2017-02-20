@@ -1,0 +1,1004 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 10.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     42987,        996]
+NotebookOptionsPosition[     41093,        929]
+NotebookOutlinePosition[     41431,        944]
+CellTagsIndexPosition[     41388,        941]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"Calculator", "/", "analyzer"}], " ", "for", " ", "paying", " ", 
+    "off", " ", "a", " ", "loan", " ", "at", " ", "a", " ", "faster", " ", 
+    "rate"}], ",", " ", 
+   RowBox[{"potentially", " ", "minimizing", " ", "interest", " ", "paid"}]}],
+   "*)"}]], "Input",
+ CellChangeTimes->{{3.696616444896563*^9, 3.696616473679268*^9}, {
+  3.6966168460637617`*^9, 3.696616847440179*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"User", " ", "inputs"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"%", "Mohela"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"r1", "=", 
+     RowBox[{
+      RowBox[{"6.8", "/", "100"}], "/", "12"}]}], ";"}], " ", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"Interest", " ", "rate"}], " ", "-", " ", "APR", " ", "-", " ", 
+     RowBox[{
+      RowBox[{"i", ".", "e", ".", " ", "6.8"}], "%"}]}], "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PV1", "=", "6413.01"}], ";", " ", 
+    RowBox[{"(*", 
+     RowBox[{"Principal", " ", "Value", " ", "in", " ", "USD"}], "*)"}], 
+    "\[IndentingNewLine]", 
+    RowBox[{"Payment1", "=", "98.92"}], ";", " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Current", " ", "Monthly", " ", "Payment", " ", "in", " ", "USD"}], 
+     "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    RowBox[{"%", "ACS"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"r2", "=", 
+     RowBox[{
+      RowBox[{"4.233", "/", "100"}], "/", "12"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"PV2", "=", "7610.35"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Payment2", "=", "127.09"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"xSelect", "=", "10"}], ";", " ", 
+    RowBox[{"(*", 
+     RowBox[{
+     "Percentage", " ", "of", " ", "monthly", " ", "bill", " ", "extra", " ", 
+      "per", " ", "month"}], "*)"}], "\[IndentingNewLine]"}]}]}]], "Input",
+ CellChangeTimes->{{3.631214173523179*^9, 3.631214206690076*^9}, {
+   3.631217119056654*^9, 3.631217145399161*^9}, {3.6312186785618525`*^9, 
+   3.631218679201889*^9}, {3.6312187804066777`*^9, 3.6312187809417086`*^9}, 
+   3.631219666616366*^9, {3.6312197445018206`*^9, 3.6312197542143764`*^9}, {
+   3.6312198013440723`*^9, 3.6312198037352085`*^9}, 3.631219993993091*^9, {
+   3.634772179322297*^9, 3.6347722086709757`*^9}, {3.6347722483952484`*^9, 
+   3.6347722491832933`*^9}, {3.6347722952619286`*^9, 3.634772301386279*^9}, {
+   3.6347723574054832`*^9, 3.6347723586175528`*^9}, {3.6347734384693165`*^9, 
+   3.6347734910073214`*^9}, {3.6966164799595203`*^9, 3.69661651988033*^9}, {
+   3.6966168242747393`*^9, 3.696616839439357*^9}, {3.696620482026903*^9, 
+   3.69662052559599*^9}, 3.696621057933432*^9}],
+
+Cell[BoxData["10"], "Output",
+ CellChangeTimes->{3.696620530064768*^9, 3.6966210091971416`*^9}]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Taken", " ", "from", " ", "standard", " ", "definition", " ", "of", " ", 
+    "Compounding", " ", "Interest"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"NumberPayments", "=", 
+    RowBox[{
+     RowBox[{"-", 
+      RowBox[{"Log", "[", 
+       RowBox[{"1", "-", 
+        RowBox[{"r", "*", 
+         RowBox[{"PV", "/", "Payment"}], "*", 
+         RowBox[{"(", 
+          RowBox[{"1", "/", 
+           RowBox[{"(", 
+            RowBox[{"1", "+", 
+             RowBox[{"x", "/", "100"}]}], ")"}]}], ")"}]}]}], "]"}]}], "/", 
+     RowBox[{"Log", "[", 
+      RowBox[{"1", "+", "r"}], "]"}]}]}], ";"}]}]], "Input",
+ CellChangeTimes->{{3.631214086775217*^9, 3.63121415326102*^9}, 
+   3.631214261536213*^9, {3.631216695590433*^9, 3.6312166998216753`*^9}, {
+   3.6312169819768133`*^9, 3.631216990993329*^9}, 3.6347745810426683`*^9, {
+   3.696616389271101*^9, 3.696616390932683*^9}, {3.696616426126354*^9, 
+   3.6966164400839577`*^9}}],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"NumberPayments1", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NumberPayments", "/.", 
+      RowBox[{"PV", "\[Rule]", "PV1"}]}], "/.", 
+     RowBox[{"r", "\[Rule]", "r1"}]}], "/.", 
+    RowBox[{"Payment", "\[Rule]", "Payment1"}]}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NumberPayments2", "=", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"NumberPayments", "/.", 
+      RowBox[{"PV", "\[Rule]", "PV2"}]}], "/.", 
+     RowBox[{"r", "\[Rule]", "r2"}]}], "/.", 
+    RowBox[{"Payment", "\[Rule]", "Payment2"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.631217168478481*^9, 3.6312171824012775`*^9}, {
+   3.6312172479890285`*^9, 3.631217272476429*^9}, {3.631217312246704*^9, 
+   3.6312173360850673`*^9}, {3.6347724106965313`*^9, 
+   3.6347724114545746`*^9}, {3.634773266603486*^9, 3.6347732981122885`*^9}, {
+   3.6347735074042597`*^9, 3.634773510753451*^9}, {3.6347744322691584`*^9, 
+   3.634774433104206*^9}, {3.634774534819024*^9, 3.6347745360800962`*^9}, 
+   3.634774570392059*^9, 3.6347759608065863`*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "If", " ", "one", " ", "puts", " ", "x", " ", "percentage", " ", "of", 
+     " ", 
+     RowBox[{"his", "/", "her"}], " ", "monthly", " ", "bill", " ", "towards",
+      " ", "the", " ", "principal", " ", "of", " ", "the", " ", "loan"}], ",",
+     " ", 
+    RowBox[{
+     RowBox[{"he", "/", "she"}], " ", "can", " ", "pay", " ", "it", " ", 
+     "off", " ", "y", " ", 
+     RowBox[{"months", "/", "number"}], " ", "of", " ", "payments", " ", 
+     RowBox[{"faster", "."}]}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "This", " ", "plot", " ", "shows", " ", "this", " ", "relationship"}], 
+   "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Plot", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"NumberPayments1", ",", "NumberPayments2"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"x", ",", "0", ",", "30"}], "}"}], ",", 
+     RowBox[{"AxesLabel", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<% increase in monthly payment\>\"", ",", 
+        "\"\<Number of Payments\>\""}], "}"}]}]}], "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.631214237809856*^9, 3.63121424329417*^9}, {
+  3.631214360627881*^9, 3.631214382725145*^9}, {3.63121454121021*^9, 
+  3.6312145987595015`*^9}, {3.6312146793301096`*^9, 3.6312147095958405`*^9}, {
+  3.6312148569942713`*^9, 3.631214859830434*^9}, {3.631217279033804*^9, 
+  3.631217328483632*^9}, {3.6312173969325476`*^9, 3.6312174077961693`*^9}, {
+  3.6312200522334223`*^9, 3.631220075005725*^9}, {3.6347738740272293`*^9, 
+  3.6347739187617874`*^9}, {3.6347740300631537`*^9, 3.6347740363525133`*^9}, {
+  3.634774358767955*^9, 3.634774359290984*^9}, {3.696616874897396*^9, 
+  3.69661692522812*^9}},
+ NumberMarks->False],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {}, 
+    TagBox[
+     {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwV0Hs0lAkYBnDLqsau0sQhqTYxW+7jbsZnHtHUaL/xzYW2jqkwE7shlUvZ
+taKLSK1QqzaOnOmCyrAqt0o4iaM6CjOriG67SaFxG1PHzv7xnvf8/nie8553
+VcRuoUxfT0+P1M3/e2qgvdXmuNzvkKSn7Y2/GN3FFgf8VRkcv9GpwSCdYfY4
+wkKVxzH8OcNAATGSqHKlgaqUE1f0VJrCEWPxR/M8jbKas7WAW7iIEONFI3/3
+hLKZc/V1xT22txhcm+H+ceUTDq8nwuJPJzE0Sq/TY8qXHPag8GLiMjFaAi7L
+u0rVHPr97G/jP4lg9aLubYTDFw7tA6+/vlME05jt5fMDDPBRw6riXxEhj8lt
+4IcsQG54ip4sXYS/C12axk2MMVKSzyuRiHBcnvZYf+lixJWbsvd6iWBe8Cor
+v2gJhrQVhtl0ETLFPL8nU2aQu/EvF40Jsc/nwvb2DAtMf3hmsq1TiMDR2ZS4
+V5bwd18SaFghRLqvINzSezn4okfWD7KFYF0/W/Pb3ZU429vB/SFaiJiZ8YMP
+jFeBnXavLH+jEBp7kwHHEGu0bzM7dI0hhG/F1ZIzZ1YjSVJjPWQoxDg9aEdo
+sw3m6Sfb3fxHgNc5O0L3zmdgdp1/ZXybALzRZN4bz+9RNDrMbSgTYCRywb6a
+tDVgfVfwlTZLoPunuX5m81qcuMTd47dLAPpDxknFqB3kF8Ly1HwBrI5VUp6e
+DqgdbfSudBGg0N7HZEmUI94lv//SaSpAh6W/h/qUE+zCOriPNRRYVs25zr3O
+kJs0+v77nMJCg9KE8AwXMBs/N29sprAifaXvFgYTXhOBiQ8vUqDZht0UtjGR
+JZg37JFNwYlYWpkscYV20amUzngKewfoLUF6bvjENBSeCaEwqs4J4RW6IZXJ
+8kr3pbDB+f45nqM7GK4RdR42FO6o2drpR+6ozqLl2xtRiHNw7euSeYAyirL/
+8XUwiI/S7i00T+x+2UmpFcFYb2NBGpd6gh+voeWkB2PNwez9zV5emFq8c/K8
+KBh2Mp+7tn1eWCWlqcOtgyG7E324Zo83PidVV2on+Lhb0i0dN/OBhcbYcnsr
+HxNX5qadb/mAsroWyzrNR6RtBe0cyULVhgHblp/4GLfL96weY6GrJUztyOaj
+Vq4dmjzGRqhk/SemCR9bA1eDvcIXzLXzoo68JbEsNrPOqckXNaLghq46EmZG
+MVXkZgJSg7jNBbkk5AGpKWNbCFQdHvLu/52Ea+rJgPwwAq487mqGzvwxRY8q
+nIDR9CC99gSJo72TmsgYAqnRGyXPs0nMlKatS0kn0DqyqZhxhEQfO//ppQoC
+ZezjnfcOkIhOlJ/nXSeQkDfY8Y3OU9dvyEYUBIQM+pOQ/STo1qpp5k0C/dHz
+te+SSGxasNzqdhMBrdmaW/QEEo3dl6RPewg0OiiUsjgSQQtrHZNUBOqsf4lU
+xJJQbWifsnhGQP7efGY2hsRE/ftj2wZ1eUkrO3cXCccLLtfeDRMILe51aIjW
+9fX5J+V8IDDy9Yo5Q52DTEUc5zECOYtc+6goEjszE7sSJnX3p9wufyvT9TUd
+PWc+Q8At162EqXPG7B+R9bMEVH/tK/5VSsLEvcxB8oXAJqRebIskURxbPzk3
+RyAoN/gGXef/AEu6JB4=
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2467#1"]& ], 
+    TagBox[
+     {RGBColor[0.880722, 0.611041, 0.142051], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwV0HtU03UYx3EYlaDoQWQyuUgiF0XGxmWDDX7sgzP1uxs/LLSVIFfBQknk
+IhZyM0GdSiAGHCVEMkNFRUXFIQQeEs9JQYFNLMggPaLCFjK5ZuuP5zzn9cfz
+/uNZFpO8IZ5hYmIiN87/29DfccflUE2wmUNgx1ktje5KVmaINk8k/qLTjW80
+mA9iWNpiUcDUvoNtGhrpdK3GTFst6n5G4vp7aSwcsS2e1NSLej140TY9NAbU
+iuQ3mlbRp5LlObldNNa6DP+h1zwUmVvpFFH3aExq/Et1mr9EE5YWTK6aRpv4
+p5qu6jFR52zGrdsnaTgM3HwW4zkrksiHTlzLpWGTtKV2jtgMM0uujR7bSqPY
+e+0tRbg5aq+c56kIjcdl3Ba91XycqeBZdnrROFST/YCxZCEWFGc1CKxp2B4b
+PFBychGeLNNcZr4ORcEnJPihgQn3IXMXh8ZQ7BKc2tKRx4KhXcw7nB+KNaNT
+e3YM2iH8hzDZurBQ5AaFRdsFOOLHqGRd+YehENaVX93b7ISA7pumqa8USJrQ
+59ydvwyu475ViWoFJldZ9bPDndEzsr5+plCBoHPnq44fX474f8e3rdikgN5a
+ErWx1QXfTA6Yr16pwJAqamPKHDdUkGDW4gk5yGgG+ZvvDq/3mO6/3JPjVaz5
+rqvZK2DCYdwKqpAb/2nLKGhdiXwrfbvvl3JY/+Z25NKoB6KKNnIei+RwKLxI
+8/me4ApOTicslKNslcBqUQIbiQ8frS96JsM9uxDe2HdesPtqMZnbJIPQobWI
+08sB94jv031FMiwwq06NzuOimnvUNC1BhqW5TkFKN28s1ms+yAyUwcJ1c8OG
+X71R2xNx576VDF7UkosZET6Y+NxGkfFCipR+6zaJiS9errpeTpqlGB1ThZMy
+X9xQ7v59c5kU6zjtFYTth6ZitnNlihS3xwKn3973g9opqsxRIsUOT5++rnge
+yryHnZpdpKBG4rqVFnwENgw8uDgjwUcuLPn8aj5MRfc96zUSrMg5uLvV3x/J
+p+fEdl6RwCNe0Oza549Sr3o1fViC+NuJ+67uDIBevVLRvk2C5qruOD1TgLkF
+Q3cuiCV4c/bdW851AZrS55VfXipBrOs5iwq5EKG8JMujMwR6jxJ+vU6I8SvJ
+kToNwY2a6afjhYFgMKecHRsIPluzHIFLg7A25OtBUkpgv73gpldLEAqdUpXz
+UgiYc5MuyzdRkKZmqrLDCGrEWXt0Sgppvi8NIzSBT9YRcclmCnn53QmRRit0
+l3q00RSGWZYRVCjB/t7xydgkCpteM0qnZQQT1dmr9+RSyDapE2auJ+gLLHl0
+5hyFtim9MlNEkJhWc4LUUWjs2Vv8IpjAUHct/tUlCpHb0rqURls7a996N1AI
+Z1TGCCkCqbmjQ1MLBc4/nV3TQgJ195m4Rz1Gn44YzOYTSBbcYKdrKUzkbMjT
+8Qi06zoMrCcU/IW17tFGv2l8WRj5JwXWgZxvV/sRsE9xL7wYpjBQpT78vo+x
+1xeSrnpNYXuMeku6t7Fn87GIo6OQdcw+4DmXYGtBWlfqOIWEUsP0XY6x17K/
+wnaCwuyBnc8FRudNfR/bOEVBJZQ8rvUisPL72TNiloKpMKfL3ujK7Y3j794Z
+7+0XdarYBP8BMdcdMQ==
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2467#2"]& ]}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"% increase in monthly payment\"", TraditionalForm], 
+    FormBox["\"Number of Payments\"", TraditionalForm]},
+  AxesOrigin->{0, 50.355859765367136`},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->{517., Automatic},
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "ScalingFunctions" -> None, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 30}, {50.355859765367136`, 81.0296496947904}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.631214220728879*^9, 3.6312142641063604`*^9}, {
+   3.6312143742086573`*^9, 3.6312143838572097`*^9}, {3.631214545975482*^9, 
+   3.6312145991965265`*^9}, 3.6312147100258656`*^9, 3.6312148614395256`*^9, 
+   3.6312169953575788`*^9, 3.631217159044941*^9, {3.631217292412569*^9, 
+   3.6312173391322412`*^9}, 3.6312174082931976`*^9, 3.63121868235907*^9, 
+   3.6312187849249363`*^9, 3.631219669642539*^9, 3.631219756079483*^9, 
+   3.631219806813385*^9, {3.6312199790402355`*^9, 3.6312199974252872`*^9}, {
+   3.6312200534494915`*^9, 3.631220075253739*^9}, 3.634771751646836*^9, {
+   3.634772311205841*^9, 3.634772362169756*^9}, {3.634773273697892*^9, 
+   3.634773300341416*^9}, {3.6347734684340305`*^9, 3.6347735131205864`*^9}, 
+   3.634773605062845*^9, 3.6347739202148705`*^9, 3.634774037213563*^9, 
+   3.634774360299042*^9, 3.634774437099435*^9, 3.6347745397583065`*^9, {
+   3.6347745747303066`*^9, 3.634774587445034*^9}, 3.6347759640847735`*^9, 
+   3.69661676493285*^9, 3.696620530287746*^9, 3.6966210093949633`*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"TotalPaid1", "=", 
+   RowBox[{"NumberPayments1", "*", "Payment1", "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"x", "/", "100"}]}], ")"}]}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"TotalPaid2", "=", 
+   RowBox[{"NumberPayments2", "*", "Payment2", "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"x", "/", "100"}]}], ")"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6312154889154153`*^9, 3.631215518880129*^9}, {
+  3.6312157103680816`*^9, 3.6312157334364014`*^9}, {3.6312158530362415`*^9, 
+  3.631215875002498*^9}, {3.631217000874894*^9, 3.631217010777461*^9}, {
+  3.6312174155696135`*^9, 3.631217436107788*^9}, {3.634772429306596*^9, 
+  3.6347724299696336`*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Displays", " ", "the", " ", "cumulative", " ", "amount", " ", "of", " ", 
+    "money", " ", "paid", " ", "to", " ", "creditors", " ", "as", " ", "a", 
+    " ", "function", " ", "of", " ", "extra", " ", "percentage", " ", "added",
+     " ", "to", " ", "monthly", " ", "payment"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"Plot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"TotalPaid1", ",", "TotalPaid2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "0", ",", "30"}], "}"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<% increase in monthly payment\>\"", ",", 
+       "\"\<Total paid over life of loan\>\""}], "}"}]}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.631217023493188*^9, 3.631217023948214*^9}, {
+  3.6312174398510027`*^9, 3.631217450267598*^9}, {3.634773970171728*^9, 
+  3.6347740493422565`*^9}, {3.696616948484535*^9, 3.69661698536407*^9}},
+ NumberMarks->False],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {}, 
+    TagBox[
+     {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwV0GlQUwcUBWAqMoI2EEGaGBGLBiuYCBEIsjxyECuGVVm0MlpESBUbtIIL
+Yi0kWIgSXKBYTdGBDKUiKEjFBX3vMVERXMooWwwVtGitYElSdq3a1x93znx/
+zsy5Lpt3xMimWFhYRDL3f471tt7iF1QE8Qo14xnRNDrOcPcF65USWZwxJpgx
+HNs2c/VFkuigwxdtGe9Zfa7bUq+VaEXHM6uiaMwc4hRNdtdLdp82CPsiafTd
+iNox0q2TyF86+IRH0FjJH3hi7n4k0cpe/OoqpTHZ7Vti6v5D4jp7ddLz5TRu
+hvxS8VA7LGFpmlg5PjSc+q79uVnwTuKgXtzm5UZjljzx3LQQSzSG1tTHz6VR
+JFp5PSreGjOy+43n2DQen/RsMrNZKGjxn2pjRaOgIrttyuyZuJ9xS1o+QYHz
+Q/+h4tMOeExL11W+ppAfJw16NOaIHsrhyc/PKGT4lSe2Krm4Xnll6stOCiuM
+b7K29/OgYx8Mn3OPgiJwTRJv2VzwVdPLzzdR8L9w6tJ39Dy8zCQzVQ0U5BPm
+nBaWCyaGU3lh1RQmF7N7hfHzUSQ5NC2hjEJgdU3ZiRMLYOkdI7hTQsFsH7Zp
+rY4P0x1Oqp2awnP1prXp0xaCa9sSUaOgIDXulb4QfwZtgSncOZPC62TrjEvZ
+i1Bd+95jII1i/smZkq9zQ1xu2tEZKRTsHyw8Umd0B82r14wnUHBS1a4WiwXo
+21ASG7KGwsnFfmyHLULMCm1IjFtF4S4v2Gf4+BLs1RaK6iTMHifdMY8uDzTY
+bLPdKaZga6ndlaT0xBd3lYIhIQVnxbzA9QtFSC9NbO/gU7Bx3XA55o4IDces
++6ycKCwhZtfu3bgUHPcHigEHCum99jfDLLxQtUpeQ8ygYBxWx0tPesHKdt47
+iSWFUI9mjVTojX2nXB7kviVBDQe8Hf/NG98X3m31HyaxXbDU8FDmg1edYetO
+DZIghlI61tuI8fiWwby9n8TnfG4kSyuG0U7B/auHxKKcw5k6X1/YVSmdznSQ
+cJf50a4GXwQUOKa33Scho7YevLRzGSZ1R9JP3yZBl3WkmB398K/+eewASWLk
+7Idxjyt++Fhkb864TCLZtdpGE+mPzom60uJaEmb3YnG9yR+3hzzdxGdJXK14
++2xUFYAV5MXEr8tJJKxYgADnQNgltOd1aUjMScu/tqQpEKU390tbikk4Tpdf
+jFxH4KPrqX0rC0lUhBzIMq0n8DR623s3xksPHAkp3kAgr/KFM4txlKmuU59E
+4BN+REq7mkRe1+hkspzAFmGnxSbGE9rs5VkKAr2DZM6+AhKGgOL2ymoC6VHO
+P50/RGLr7opS6QUCU8uCXh1jPHahQfa6jkAuu2vZLsb28/XjossErhhSf/dn
+HG4914lsIqAddPFpUZG40VGZ0t5J4Ghzo6A/n0SY7VXhHj0BK6WkqJmxPrR1
+jNtDIOuo32QV45HGQdWXTwmohIX3vmEsLPc8/2qAwKextYr3eUyfIXiP+m8C
+Eft7/nnGOGxWrMTDRIDH/lZ2m/FX+bsf7hol4MniRasZjzTlaTgTBIIDOc07
+GCvf/Jjc+IaAWqYKimXM9q4SbHzH7JGnXRUzPpPWOPrhA4ES72YvHuP/AG1A
+RXI=
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2510#1"]& ], 
+    TagBox[
+     {RGBColor[0.880722, 0.611041, 0.142051], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwV0XtUzHkYBvA2FjmiotOYnRKVouvoMjL9zDOFTG2tStlBdCWUS1LpSJfT
+MUmru2lrczI7LFkply4W8y2hFmu7MCO33GkxZZputm2//fGe93z+ec553nd+
+xK7AaF0dHR0/OhN78Flbi+UR+fKBd/VkvJGg6zhrv1CVKai22dj6hRrG9yNY
+qkKBuW3D32+oE9dUKSepZAINT/rqDrXhZ5PCEeUFQfJNtWEp9fOr/rsGlM0C
+05CxfCfqVZa9T/uVHYJZqnmsiAaCESWvpE/5UqBxcfG+XUdww+s3ebtMI+Ak
+lNuEXCTgPG98G2E3JpixuYJjW0MwJ3Zz1VSvSdiWdPcC+xxBIXfVH/7B0xBm
+/eFo5xmCR6VOpN9AH8OPzfn3TxEckafd151rCJY0pbXkVwKT4leHiypmw9CZ
+3ZlYSSBZK1reMWiM9EfGBdIKgr3uJza3ZbIwRc4ZySojWKEeTdn5ig1rU8MD
+NVKCDI+AcPZSU6zP5/poigmWVf986aBiHjJ5T7ZPLiSIHe5Pb9WfD8as/tOa
+PNrP1uCZffACKGeWWcXlEnic/b3y2DELfKj0LKk8TNBv5BMW0mwJOd/0zgwJ
+wevcsJD4qQuhHlV4+mQRiNRJojdu1ngv/neRIoPgY+S0vZfSbBAkG5FOSZu4
+p4mupHkR3qfkFUceIDC6t/BojXoxlvpdlWn30/tln1/j5mYHj9Sd8g1JBKW2
+7gazt9pDt0yRrk0g+JMtdNUUOOBLzosDsnjah9Oc7/jQEXk9ycRyN8HMSbKE
+8EwnEFXPbVUcgVnGPA/xQi7E7FZu5A4CPauNdYG3ufAUt9brbCNwYOaeTwpd
+glnlZv/d20IQ/8zoho+OMzh6RW/jowjUmtxgUakzrPNuHVoVQeDteKtMZO+C
+c+XuXNswgusa/tehv1ygEdqffh9KsNNuSXd7tCsy88v1OzcQMJ+jusR6bqg4
+mcOTiglWWrL89GVu+Ck8KlSyjsAmPSe5mcdDS2HLQUkwweJod4VVNw/ZLd77
+I4IIoq/HZF3asxSGdfI7WwMIFJVdUf3G7ugVDT1Z/QPBwOnxIcd6dzjMOvbZ
+3Y8g0uqsXpnfMjilrG8K8qX/WlzkdqFvGUR3c370ERE0yL++0GbzkVCl0xPj
+TbB+hQX4Zh6oOiy5WbKS4Ls4SaMD8cCYhXNUpReB8fTYWr91DN75PpW0Cwnk
+XqkpfWIGazUf09qol6Qe9SrayKDVfENyE7V/X80DVTiDy5rA7bXUhx5qRyJj
+GaibzwcWUA/L0jxTMhgkBbFcA6i7+UWdp84y8GxKQjsIYvbJfxFVM7DJ813R
+Rj1YfTn6Yw0D/9mpq5uojRaohrh1DKSWIwG11L7TTDnXCIPcurXbCqivdp2K
+6nzA4Htt0ZkAap+ZDfaJKgb8BbgoolZ5tw2yHjPYc1x0TUg9cOWf7E09DCbv
+SOjgUtufcDr3oZeB8ITNN0YTed3CxNxPDB4WX9efPpE3J0jg2McgRl7L1qXe
+ItnXnqBlMDBW7fpFQPPIoTKTYQYW/EavXurMUWnklVEGihTzwJfUBi5n7ELH
+GGyqex3WTX087op2fJzByXff7u6g/h/5LkV4
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2510#2"]& ]}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"% increase in monthly payment\"", TraditionalForm], 
+    FormBox["\"Total paid over life of loan\"", TraditionalForm]},
+  AxesOrigin->{0, 7558.102352512205},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->{502.5, Automatic},
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "ScalingFunctions" -> None, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 30}, {7558.102352512205, 8563.998068798312}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.63121701933095*^9, 3.631217024646254*^9}, 
+   3.6312171590829434`*^9, 3.631217339198245*^9, 3.631217450533613*^9, 
+   3.631218682400072*^9, 3.631218784968939*^9, 3.6312196696985426`*^9, 
+   3.6312197561284857`*^9, 3.6312198068573875`*^9, {3.6312199790872383`*^9, 
+   3.63121999747329*^9}, 3.634771751696839*^9, {3.634772332490058*^9, 
+   3.634772362227759*^9}, {3.6347732737348948`*^9, 3.6347733003804183`*^9}, {
+   3.634773468474033*^9, 3.634773513159589*^9}, 3.634773605106848*^9, {
+   3.634773998832368*^9, 3.634774016502378*^9}, 3.6347740497982826`*^9, 
+   3.634774437135437*^9, 3.6347745398173103`*^9, {3.63477457478631*^9, 
+   3.634774587509038*^9}, 3.6347759641267757`*^9, 3.696616765391227*^9, 
+   3.6966205304563293`*^9, 3.696621009569079*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"RegularPaid1", "=", 
+  RowBox[{"TotalPaid1", "/.", 
+   RowBox[{"x", "\[Rule]", "0"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"RegularPaid2", "=", 
+  RowBox[{"TotalPaid2", "/.", 
+   RowBox[{"x", "\[Rule]", "0"}]}]}]}], "Input",
+ CellChangeTimes->{{3.6312193634810276`*^9, 3.6312193874313974`*^9}}],
+
+Cell[BoxData["8015.453010048147`"], "Output",
+ CellChangeTimes->{
+  3.6312193879464273`*^9, 3.631219669711543*^9, 3.6312197561394863`*^9, 
+   3.631219806868388*^9, {3.631219979098239*^9, 3.6312199974852905`*^9}, 
+   3.6347717517118397`*^9, {3.6347723325010586`*^9, 3.6347723622387595`*^9}, {
+   3.6347732737478952`*^9, 3.6347733003914185`*^9}, {3.6347734684900336`*^9, 
+   3.6347735131725893`*^9}, 3.6347736051198483`*^9, 3.6347744371474376`*^9, 
+   3.6347745398313107`*^9, {3.634774574800311*^9, 3.634774587524039*^9}, 
+   3.634775964138777*^9, 3.696616765445126*^9, 3.696620530485825*^9, 
+   3.696621009670451*^9}],
+
+Cell[BoxData["8563.998075541656`"], "Output",
+ CellChangeTimes->{
+  3.6312193879464273`*^9, 3.631219669711543*^9, 3.6312197561394863`*^9, 
+   3.631219806868388*^9, {3.631219979098239*^9, 3.6312199974852905`*^9}, 
+   3.6347717517118397`*^9, {3.6347723325010586`*^9, 3.6347723622387595`*^9}, {
+   3.6347732737478952`*^9, 3.6347733003914185`*^9}, {3.6347734684900336`*^9, 
+   3.6347735131725893`*^9}, 3.6347736051198483`*^9, 3.6347744371474376`*^9, 
+   3.6347745398313107`*^9, {3.634774574800311*^9, 3.634774587524039*^9}, 
+   3.634775964138777*^9, 3.696616765445126*^9, 3.696620530485825*^9, 
+   3.69662100967306*^9}]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"\[CapitalDelta]1", "=", 
+   RowBox[{"RegularPaid1", "-", "TotalPaid1"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"\[CapitalDelta]2", "=", 
+   RowBox[{"RegularPaid2", "-", "TotalPaid2"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6312193939267693`*^9, 3.6312194342290745`*^9}, {
+  3.634773318393449*^9, 3.634773319277499*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "Essentially", " ", "the", " ", "difference", " ", "one", " ", "saves", 
+    " ", "on", " ", "interest"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"Plot", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"\[CapitalDelta]1", ",", "\[CapitalDelta]2"}], "}"}], ",", 
+    RowBox[{"{", 
+     RowBox[{"x", ",", "0", ",", "30"}], "}"}], ",", 
+    RowBox[{"AxesLabel", "\[Rule]", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<% increase of loan payment\>\"", ",", 
+       "\"\<Amount of money you gain over life of loan\>\""}], "}"}]}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.631219477988577*^9, 3.6312195094813786`*^9}, {
+  3.634774074490695*^9, 3.634774155749343*^9}, {3.696616997348591*^9, 
+  3.696617022272928*^9}}],
+
+Cell[BoxData[
+ GraphicsBox[{{{}, {}, 
+    TagBox[
+     {RGBColor[0.368417, 0.506779, 0.709798], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwVUGs0lAkY/pbtxG5qEockJGzkNspoMp/vkUpDJK3KhkZjohqXXDN96uNU
+Kk4NuuBIkzNbuVQqWonM0lac00XJDN20bXsOKjPrrlr77Y/3vO9z3vd5zvs8
+i3Ykhkr0CIIIYuv/Pvam/Z5dntKHHUWzywZ9usrNM301ORRBnJp1L7SdgumT
+HeaaQopgngTe2dhDpYdUqfU1FRQhynrwdUM/NfezWeGk+ga7/+5R5fpJ6m1T
+cOKIupUiDLiWC9YaYq3dwGud+hlF1FivM+bPx6Ta67RW/SdFPL0c7GrtiDa/
+S8rOimGW//zWwDAflm9v/73D+RtFNGt/NbHxg4l0e9VMP30w/YUfbOcIUchd
+eyc4zACE77jwUMwG9BS7q3QcIzBwnNNcGoo85cEnevPnAkl3a6rrwmB26v2x
+onPzQMTvCYy7uRW5Pwt9no2ZgqkZ1BxJ2YYU/oXt7TnmYOp0QwJxFFYPTckS
+3ltAVLKn3DRPhGzBxmiLFQthc6XsU4cmGiuvltQdaLGG6pTPeCIphnRCxzw0
+WgSFx7XfvQ/HYHIp541LmC1ELX8s9HkvgaC6RnHmzGKAe+lQiWcsdMYBos2t
+dlDcHBkskMbhr3zR5uSZDlB8HkwbbdgF4VCG8APvJ4jIV/L6gd34KDZIqTu4
+BGgym8PnStk8zfRyWx1h408uMoqPh/EjhxO1Q05QhVc15J1MgOXRayE8njNU
+pqvKTO4nongpnzMv1gXyWNv8yb1J6LDw9RwucIXoelmC4GsSVlq2yt263cCQ
+3QpX+V7M1q9Ijc5xR8iygJYI82RYZVsLwh24qJ2btfGfymQY2kfcCn3ABfPo
+05l3vBS4kvOvZUR6QOSl3H22IQXJb4zbAohlQPANVYxfKoaG88OExcvATByu
+p9pS4e92v1ToshzwjazXo9Jwd9j7y/jj5WCIxwOFbWlIcPbo7ZR4ArJ24yoy
+HeTnmK5wQx6Q17ErRJWONXbmQUYVPPT1SKabV2RgCXN8X6uXF/r817dEXsmA
+k4TfYt/rBRt7q53rnPZBcjfuUN3eFUDl8ai4c/vQouiK0ZnywRE6CkvNMzFy
+eXrc7TcWP9yUTsgzIbavNiwNWgkmMLZpxr+Z0DkV8W5oWfwxduRVigwNyi/v
+Ro96Q/79tvxjfTL8snoxvK0E6PPytVAL92NBfO5tV5UAnPONQ42N+2H6g/R6
+0BYSqiUv5Z22NJR+WTJtOImnvZ2K83Y0PLJO+BVFkEhKsiyJd6ARrK19oYlm
+8dm6VYZONI50j06KpSREenYyiktjouLgKlk2Ca1F8f5LFI1e76LnF6tJ1OoK
+XkgiaMSlKcuEV0nINfnD7lE0xq7WSz7WklA8NZ36sp2Gsa1mnHuL1XPpURWI
+aQQaLLRsVrF8q62eTbtpNHVdjHn+gkRfYsedWZk0AmY3uKRrSDANB8TdMhoa
+//Yx85ck3N+9Hj5P0xhpHDwa1UcihFA+9mBouFxwv9I/wPq7mC3dksvq9fqm
+538iwbFrCbc5xuqZbKLctCxfXe/Wf5zGzty0ztRR9n5G92nZCVZPdaTUbILN
+y0TfwU9OI2fqrLhxiuUz2vIfC2lwllc6R35j/XAURFcRjfL4xtHpafa/k/MC
+y07T+A8YZSfo
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2553#1"]& ], 
+    TagBox[
+     {RGBColor[0.880722, 0.611041, 0.142051], AbsoluteThickness[1.6], Opacity[
+      1.], LineBox[CompressedData["
+1:eJwVkX001Fkcxu8x2xG7SmrW0CR5SWEa5CUzNE+xCo2iKCWMocjMz2552aYt
+Q1sjSpZUq5LmWCpRWyq9mqNOLRt6wWh2t/c6qTBzRGhl7/5xz72f8zzf57nn
+3lkJaRFJRoQQMV3/70NPmm87FFQupEfl0aV/L+wo52xd1J0rIuRLxRzDFRHY
+7Qmc7mLKZmEL9M2izBWntaxuNeVjFWf6Houm9FkWj2jPiwh6XTXve0RPr4el
+fdQ2UT0h8cvrEVGQw7t/DNqHIvJsiuk+nQlGtD6leu0LEbk/60XrLSvcCqiu
+fKAeEJHAaaskVc7gPr3yJsF1TEQWe1YtPTUf02Rxp40DWCB5rKXcFl8Uuwdd
+C4ucCNIabuzhCjw+7KYxmJuBeB1r3+UWgILK7HYjqykg7BcZwylBsDzwck/J
+sakg3KCu3rxgqFYFL3w4xAapPa7jJy/DFt8Tcc25HBCnzkd3FcsR2D+qYF5a
+g7Dq0tRO4cjxC5dYL5gBZUp6nHB3BAR1v9bvaJwJZaetac3YSsiGDco/zGaB
+/Fh7NGV1JEZczJ/wIu1AXLxqxM1R8Ks5U3HwoD2I3YeuUv4aGCxC4qOaHKC8
+Xd6j2BqNV3vjozYbzwaZKeI06tYiuD8r+LW3E5TqyYpQ2xh8kE7cUp89B0Se
+uu3AT+sR5GBppGqaC6Vdttu3bbGwaJ1deK7fGRgz3acyigc37+wKb2/6MP/u
+sDU+FY/DLr7mUzfyoGnx+aZosQQt1ou8Bn6ZB03hNVa4VgIBt6mI38WH0unN
+DE1mAiax1OmSXDdg+tuAmyZS2OTM9Iue7Q5y0bLFvloKE8eYSxF33aEZNQ5p
+EiVinr/V2az1HlCqsuq/v5eIzU8sboWQ+cBXMYe8pUnoH9gbGXx4PpQ5ivyw
+viQs4d8pC+Z5gsRf7rXP2ICbA8LPn9o8oWxrdbszYSMYVw/dgyQvaJwFna4F
+G+Hfl9gRbeIN8io92s46Gd85cMRmaspvJ7zklCdjjjL/xyYfH6BsJN/cJgXO
+Sb6NjjrKc3nvwqtTkHQz+ef6HxaA3NVHjDluQmNFR6KB7QvN/dAvDbWb8PHk
++Cf+ZcrZZQfT3VMhdawxKRMLgMbs1+OnU2FwLvE+rxeA+KZareXJ0FD5+flg
+nhCoGxA2/CbD2kB7CG38oHkm1O2wlmO6XHVlnsYPZFkkX3tIDrap7Hfxan8o
+w/8MLPyaQWXAdoU+2h/IfI4iMwYe2wsDSmIoW0U5Fk9mEKY/19kt8QeJlVSX
+TmWwu2twRCqj8/t5RUemMxhWZy9W5FCWmwypXRjohCWPqmr86X/wbCpCGSRn
+VB4NrqN5OYK5x8UMhuouJn04R/Wsx9zy5Qws7Lo/uV+i846dN46sZBA6cQb3
+hob6T+rflK5jcL2jKvFRJ+VhW+2uVAYhkxp4md3Uf50t2yln0L2keYjzF73f
+2Us9yjQGH6++z4t9Rv35rOPbtjDgnXCr7XlH9c+DhrRtNE+3KHNvL+1nb70n
+207zpq0U8fXU735xf0o2gw2qjAfpg5TbYu8n7KR5mt1llsO0L7ddHLeLQe7o
+IenVUcpHxi+sUzEw9zzlun6M5l3QG63Zw6BcfnVwfJz2JVQKVhUw+A/S/hXi
+
+       "]]},
+     Annotation[#, "Charting`Private`Tag$2553#2"]& ]}, {}, {}},
+  AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+  Axes->{True, True},
+  AxesLabel->{
+    FormBox["\"% increase of loan payment\"", TraditionalForm], 
+    FormBox[
+    "\"Amount of money you gain over life of loan\"", TraditionalForm]},
+  AxesOrigin->{0, 0},
+  DisplayFunction->Identity,
+  Frame->{{False, False}, {False, False}},
+  FrameLabel->{{None, None}, {None, None}},
+  FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+  GridLines->{None, None},
+  GridLinesStyle->Directive[
+    GrayLevel[0.5, 0.4]],
+  ImagePadding->All,
+  ImageSize->{514.5, Automatic},
+  Method->{
+   "DefaultBoundaryStyle" -> Automatic, "DefaultMeshStyle" -> 
+    AbsolutePointSize[6], "ScalingFunctions" -> None, 
+    "CoordinatesToolOptions" -> {"DisplayFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& ), "CopiedValueFunction" -> ({
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 1, 2][#]& )[
+         Part[#, 1]], 
+        (Part[{{Identity, Identity}, {Identity, Identity}}, 2, 2][#]& )[
+         Part[#, 2]]}& )}},
+  PlotRange->{{0, 30}, {0., 457.35065753594245`}},
+  PlotRangeClipping->True,
+  PlotRangePadding->{{
+     Scaled[0.02], 
+     Scaled[0.02]}, {
+     Scaled[0.05], 
+     Scaled[0.05]}},
+  Ticks->{Automatic, Automatic}]], "Output",
+ CellChangeTimes->{{3.6312194971686745`*^9, 3.631219510705448*^9}, 
+   3.6312196697695465`*^9, 3.6312197561844893`*^9, 3.6312198069133906`*^9, {
+   3.6312199791442413`*^9, 3.6312199975332937`*^9}, 3.634771751755842*^9, {
+   3.634772332541061*^9, 3.6347723622897625`*^9}, {3.634773273799898*^9, 
+   3.634773300442422*^9}, {3.634773468525036*^9, 3.634773513219592*^9}, 
+   3.6347736051558504`*^9, {3.634774133878092*^9, 3.634774156238371*^9}, 
+   3.6347744371964407`*^9, 3.634774539880314*^9, {3.6347745748443136`*^9, 
+   3.634774587570041*^9}, 3.6347759641787786`*^9, 3.696616765730673*^9, 
+   3.6966205306150913`*^9, 3.696621009814608*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"NewPayment1", "=", 
+  RowBox[{
+   RowBox[{"Payment1", "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"x", "/", "100"}]}], ")"}]}], "/.", 
+   RowBox[{"x", "\[Rule]", "xSelect"}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"NewPayment2", "=", 
+  RowBox[{
+   RowBox[{"Payment2", "*", 
+    RowBox[{"(", 
+     RowBox[{"1", "+", 
+      RowBox[{"x", "/", "100"}]}], ")"}]}], "/.", 
+   RowBox[{"x", "\[Rule]", "xSelect"}]}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6312195660966167`*^9, 3.631219600681595*^9}, {
+   3.631219827893591*^9, 3.6312198337139235`*^9}, {3.631219878618492*^9, 
+   3.6312198911692095`*^9}, {3.631219943761218*^9, 3.6312199633083363`*^9}, {
+   3.6312200975550146`*^9, 3.631220115747055*^9}, 3.6347723825079193`*^9, 
+   3.634773600566588*^9, {3.696620934209784*^9, 3.696620941166806*^9}, 
+   3.696620987209234*^9}],
+
+Cell[BoxData["108.81200000000001`"], "Output",
+ CellChangeTimes->{
+  3.6312196015676455`*^9, 3.631219669782547*^9, 3.63121975619649*^9, {
+   3.6312198069243913`*^9, 3.6312198339249353`*^9}, {3.631219884788845*^9, 
+   3.6312198915312304`*^9}, {3.63121996408338*^9, 3.6312199975442944`*^9}, {
+   3.631220099469124*^9, 3.631220116170079*^9}, 3.634771751774843*^9, {
+   3.6347723325520616`*^9, 3.634772362300763*^9}, {3.634773273810899*^9, 
+   3.6347733004534225`*^9}, {3.6347734685370364`*^9, 3.634773513233593*^9}, 
+   3.6347736051678514`*^9, 3.634774437210441*^9, 3.6347745398963146`*^9, {
+   3.6347745748593144`*^9, 3.6347745875870423`*^9}, 3.6347759641907797`*^9, 
+   3.696616765866889*^9, 3.696620530641079*^9, 3.696621009836136*^9}],
+
+Cell[BoxData["139.799`"], "Output",
+ CellChangeTimes->{
+  3.6312196015676455`*^9, 3.631219669782547*^9, 3.63121975619649*^9, {
+   3.6312198069243913`*^9, 3.6312198339249353`*^9}, {3.631219884788845*^9, 
+   3.6312198915312304`*^9}, {3.63121996408338*^9, 3.6312199975442944`*^9}, {
+   3.631220099469124*^9, 3.631220116170079*^9}, 3.634771751774843*^9, {
+   3.6347723325520616`*^9, 3.634772362300763*^9}, {3.634773273810899*^9, 
+   3.6347733004534225`*^9}, {3.6347734685370364`*^9, 3.634773513233593*^9}, 
+   3.6347736051678514`*^9, 3.634774437210441*^9, 3.6347745398963146`*^9, {
+   3.6347745748593144`*^9, 3.6347745875870423`*^9}, 3.6347759641907797`*^9, 
+   3.696616765866889*^9, 3.696620530641079*^9, 3.6966210098388577`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"MohelaMonthsLeft", "=", 
+  RowBox[{"Round", "[", 
+   RowBox[{"QuotientRemainder", "[", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"NumberPayments1", "/.", 
+       RowBox[{"x", "\[Rule]", "10"}]}], ")"}], ",", "12"}], "]"}], 
+   "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{"ACSMonthsLeft", "=", 
+  RowBox[{"Round", "[", 
+   RowBox[{
+    RowBox[{"QuotientRemainder", "[", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"NumberPayments2", "/.", 
+        RowBox[{"x", "\[Rule]", "10"}]}], ")"}], ",", "12"}], "]"}], ",", 
+    "1"}], "]"}]}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.6347725187177095`*^9, 3.63477258725463*^9}, {
+  3.6347726339282994`*^9, 3.6347726515363064`*^9}, {3.6347728486975837`*^9, 
+  3.6347728554149675`*^9}, {3.6347728996654987`*^9, 3.6347729291541853`*^9}, {
+  3.6347733485121713`*^9, 3.634773351685353*^9}, {3.6347741704531837`*^9, 
+  3.6347742140316763`*^9}, {3.69662096977973*^9, 3.69662097721439*^9}}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"5", ",", "12"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.634772587713656*^9, 3.634772652784378*^9, 3.6347728568200483`*^9, {
+   3.6347729100920954`*^9, 3.6347729199636593`*^9}, {3.6347732738248997`*^9, 
+   3.6347733004704237`*^9}, 3.634773352385393*^9, {3.6347734685510373`*^9, 
+   3.634773513254594*^9}, 3.634773605178852*^9, 3.6347741863100905`*^9, 
+   3.634774437221442*^9, 3.6347745399163156`*^9, {3.634774574873315*^9, 
+   3.634774587601043*^9}, 3.6347759642027802`*^9, 3.6966167659726152`*^9, 
+   3.69662053071179*^9, 3.696621009906773*^9}],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"5", ",", "1"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.634772587713656*^9, 3.634772652784378*^9, 3.6347728568200483`*^9, {
+   3.6347729100920954`*^9, 3.6347729199636593`*^9}, {3.6347732738248997`*^9, 
+   3.6347733004704237`*^9}, 3.634773352385393*^9, {3.6347734685510373`*^9, 
+   3.634773513254594*^9}, 3.634773605178852*^9, 3.6347741863100905`*^9, 
+   3.634774437221442*^9, 3.6347745399163156`*^9, {3.634774574873315*^9, 
+   3.634774587601043*^9}, 3.6347759642027802`*^9, 3.6966167659726152`*^9, 
+   3.69662053071179*^9, 3.696621009909807*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"NumberPayments1", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"NumberPayments", "/.", 
+      RowBox[{"x", "\[Rule]", "xSelect"}]}], "/.", 
+     RowBox[{"r", "\[Rule]", "r1"}]}], "/.", 
+    RowBox[{"Payment", "\[Rule]", "Payment1"}]}], "/.", 
+   RowBox[{"PV", "\[Rule]", 
+    RowBox[{"PV1", "-", "Y1"}]}]}]}], "\[IndentingNewLine]", 
+ RowBox[{"NumberPayments2", "=", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"NumberPayments", "/.", 
+      RowBox[{"x", "\[Rule]", "xSelect"}]}], "/.", 
+     RowBox[{"r", "\[Rule]", "r2"}]}], "/.", 
+    RowBox[{"Payment", "\[Rule]", "Payment2"}]}], "/.", 
+   RowBox[{"PV", "\[Rule]", 
+    RowBox[{"PV2", "-", 
+     RowBox[{"(", 
+      RowBox[{"1000", "-", "Y1"}], ")"}]}]}]}]}]}], "Input",
+ CellChangeTimes->{{3.634775274419327*^9, 3.6347752886451406`*^9}, {
+  3.6347757565729046`*^9, 3.634775776579049*^9}, {3.6347758759487324`*^9, 
+  3.634775905380416*^9}, {3.696620466846933*^9, 3.6966205030415583`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", "176.97011734625102`"}], " ", 
+  RowBox[{"Log", "[", 
+   RowBox[{"1", "-", 
+    RowBox[{"0.000052077589481552285`", " ", 
+     RowBox[{"(", 
+      RowBox[{"6413.01`", "\[VeryThinSpace]", "-", "Y1"}], ")"}]}]}], 
+   "]"}]}]], "Output",
+ CellChangeTimes->{{3.634775883719177*^9, 3.6347759067254925`*^9}, 
+   3.634775964213781*^9, 3.696616766192542*^9, 3.69662053078557*^9, 
+   3.696621009987368*^9}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", "283.986595290384`"}], " ", 
+  RowBox[{"Log", "[", 
+   RowBox[{"1", "-", 
+    RowBox[{"0.000025232655455332295`", " ", 
+     RowBox[{"(", 
+      RowBox[{"6610.35`", "\[VeryThinSpace]", "+", "Y1"}], ")"}]}]}], 
+   "]"}]}]], "Output",
+ CellChangeTimes->{{3.634775883719177*^9, 3.6347759067254925`*^9}, 
+   3.634775964213781*^9, 3.696616766192542*^9, 3.69662053078557*^9, 
+   3.696621009991394*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{"Need", " ", "to", " ", "revisit", " ", "these", " ", "sections"}],
+    "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"ABC", "=", 
+   RowBox[{"Solve", "[", 
+    RowBox[{
+     RowBox[{"NumberPayments1", "==", "NumberPayments2"}], ",", "Y1"}], 
+    "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.6347757896137943`*^9, 3.6347758496312275`*^9}, {
+  3.6347759123208127`*^9, 3.6347759383693027`*^9}, {3.6966205436791*^9, 
+  3.6966205650820713`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Solve","inex",
+   "\"Solve was unable to solve the system with inexact coefficients or the \
+system obtained by direct rationalization of inexact numbers present in the \
+system. Since many of the methods used by Solve require exact input, \
+providing Solve with an exact version of the system may help.\"",2,87,5,
+   32592754203946002945,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.634775964319787*^9, 3.696616767249791*^9, 
+  3.6966205309391603`*^9, 3.6966210101237793`*^9}],
+
+Cell[BoxData[
+ RowBox[{"Solve", "[", 
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "176.97011734625102`"}], " ", 
+     RowBox[{"Log", "[", 
+      RowBox[{"1", "-", 
+       RowBox[{"0.000052077589481552285`", " ", 
+        RowBox[{"(", 
+         RowBox[{"6413.01`", "\[VeryThinSpace]", "-", "Y1"}], ")"}]}]}], 
+      "]"}]}], "\[Equal]", 
+    RowBox[{
+     RowBox[{"-", "283.986595290384`"}], " ", 
+     RowBox[{"Log", "[", 
+      RowBox[{"1", "-", 
+       RowBox[{"0.000025232655455332295`", " ", 
+        RowBox[{"(", 
+         RowBox[{"6610.35`", "\[VeryThinSpace]", "+", "Y1"}], ")"}]}]}], 
+      "]"}]}]}], ",", "Y1"}], "]"}]], "Output",
+ CellChangeTimes->{
+  3.634775810776005*^9, 3.634775852184373*^9, {3.6347759147719526`*^9, 
+   3.634775964324787*^9}, 3.6966167674966927`*^9, 3.696620530975438*^9, 
+   3.6966210101502953`*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ABC", "/.", "Y"}], "=", 
+  RowBox[{"1000", "-", "Z"}]}]], "Input",
+ CellChangeTimes->{{3.6347758543984995`*^9, 3.6347758670082207`*^9}}],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Set","write",
+   "\"Tag \\!\\(\\*RowBox[{\\\"ReplaceAll\\\"}]\\) in \
+\\!\\(\\*RowBox[{RowBox[{\\\"Solve\\\", \\\"[\\\", \
+RowBox[{RowBox[{RowBox[{RowBox[{\\\"-\\\", \\\"176.97011734625102`\\\"}], \
+\\\" \\\", RowBox[{\\\"Log\\\", \\\"[\\\", RowBox[{\\\"1\\\", \\\"-\\\", \
+RowBox[{\\\"0.000052077589481552285`\\\", \\\" \\\", RowBox[{\\\"Plus\\\", \\\
+\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\"]\\\"}]}]}], \\\"]\\\"}]}], \\\"\[Equal]\\\", \
+RowBox[{RowBox[{\\\"-\\\", \\\"283.986595290384`\\\"}], \\\" \\\", RowBox[{\\\
+\"Log\\\", \\\"[\\\", RowBox[{\\\"1\\\", \\\"-\\\", \
+RowBox[{\\\"0.000025232655455332295`\\\", \\\" \\\", RowBox[{\\\"Plus\\\", \\\
+\"[\\\", RowBox[{\\\"\[LeftSkeleton]\\\", \\\"2\\\", \
+\\\"\[RightSkeleton]\\\"}], \\\"]\\\"}]}]}], \\\"]\\\"}]}]}], \\\",\\\", \
+\\\"Y1\\\"}], \\\"]\\\"}], \\\"/.\\\", \\\"\[VeryThinSpace]\\\", \
+\\\"Y\\\"}]\\) is Protected.\"",2,88,6,32592754203946002945,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.634775868063281*^9, 3.63477596437679*^9, 
+  3.696616767777611*^9, 3.69662053107493*^9, 3.696621010249071*^9}],
+
+Cell[BoxData[
+ RowBox[{"1000", "-", "Z"}]], "Output",
+ CellChangeTimes->{3.6347758680642815`*^9, 3.6347759643787904`*^9, 
+  3.69661676780243*^9, 3.696620531094884*^9, 3.69662101026867*^9}]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"(", 
+    RowBox[{"640", "+", "55"}], ")"}], "/", "2."}], "+", "50", "+", "325", 
+  "+", "230", "+", 
+  RowBox[{"70", "*", 
+   RowBox[{"52", "/", "12"}]}], "+", "87", "+", "292", "+", "20", "+", "60", 
+  "+", "98"}]], "Input",
+ CellChangeTimes->{{3.6312189505634103`*^9, 3.6312190979198384`*^9}, {
+  3.6312191420283613`*^9, 3.631219149205772*^9}, {3.6312192000746813`*^9, 
+  3.631219226665202*^9}}],
+
+Cell[BoxData["1812.8333333333335`"], "Output",
+ CellChangeTimes->{{3.6312189517834797`*^9, 3.631218963706162*^9}, 
+   3.631219110406553*^9, 3.6312191431274242`*^9, 3.631219213357441*^9, 
+   3.6312192786671767`*^9, 3.6312196698055487`*^9, 3.631219756214491*^9, 
+   3.631219806944392*^9, {3.631219979172243*^9, 3.6312199975642953`*^9}, 
+   3.634771751790844*^9, {3.6347723325650625`*^9, 3.634772362315764*^9}, {
+   3.6347732738379*^9, 3.634773300483424*^9}, {3.6347734685610375`*^9, 
+   3.634773513266595*^9}, 3.634773605190852*^9, 3.6347744372344427`*^9, 
+   3.6347745399293165`*^9, {3.634774574889316*^9, 3.634774587616044*^9}, 
+   3.6347759643877907`*^9, 3.696616767912022*^9, 3.6966205311686897`*^9, 
+   3.6966210103393583`*^9}]
+}, Open  ]]
+},
+WindowSize->{1321, 747},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"11.0 for Linux x86 (64-bit) (September 21, 2016)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 448, 10, 34, "Input"],
+Cell[CellGroupData[{
+Cell[1031, 34, 2353, 54, 306, "Input"],
+Cell[3387, 90, 95, 1, 32, "Output"]
+}, Open  ]],
+Cell[3497, 94, 994, 25, 56, "Input"],
+Cell[4494, 121, 1052, 24, 57, "Input"],
+Cell[CellGroupData[{
+Cell[5571, 149, 1792, 41, 123, "Input"],
+Cell[7366, 192, 6236, 116, 226, "Output"]
+}, Open  ]],
+Cell[13617, 311, 745, 17, 57, "Input"],
+Cell[CellGroupData[{
+Cell[14387, 332, 995, 23, 56, "Input"],
+Cell[15385, 357, 5926, 112, 208, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21348, 474, 319, 7, 55, "Input"],
+Cell[21670, 483, 616, 9, 32, "Output"],
+Cell[22289, 494, 615, 9, 32, "Output"]
+}, Open  ]],
+Cell[22919, 506, 377, 9, 57, "Input"],
+Cell[CellGroupData[{
+Cell[23321, 519, 777, 20, 56, "Input"],
+Cell[24101, 541, 5811, 112, 198, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29949, 658, 880, 20, 77, "Input"],
+Cell[30832, 680, 735, 10, 32, "Output"],
+Cell[31570, 692, 726, 10, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32333, 707, 972, 22, 79, "Input"],
+Cell[33308, 731, 588, 10, 34, "Output"],
+Cell[33899, 743, 587, 10, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34523, 758, 983, 25, 55, "Input"],
+Cell[35509, 785, 436, 11, 32, "Output"],
+Cell[35948, 798, 434, 11, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36419, 814, 487, 12, 56, "Input"],
+Cell[36909, 828, 536, 10, 41, "Message"],
+Cell[37448, 840, 843, 23, 34, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38328, 868, 171, 4, 32, "Input"],
+Cell[38502, 874, 1170, 19, 23, "Message"],
+Cell[39675, 895, 188, 3, 32, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39900, 903, 444, 11, 32, "Input"],
+Cell[40347, 916, 730, 10, 32, "Output"]
+}, Open  ]]
+}
+]
+*)
+
